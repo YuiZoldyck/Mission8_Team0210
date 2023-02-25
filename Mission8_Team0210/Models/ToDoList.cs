@@ -16,8 +16,12 @@ namespace Mission8_Team0210.Models
         [Required]
         public int Quadrant { get; set; }
 
+        
+        public bool IsCompleted { get; set; }
+
+        // Build Foreign Key Relationship
         [Required]
         public int CategoryId { get; set; }
-        public bool IsCompleted { get; set; }
+        public Category Category { get; set; }
     }
 }

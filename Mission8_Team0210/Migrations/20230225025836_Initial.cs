@@ -28,12 +28,18 @@ namespace Mission8_Team0210.Migrations
                     Task = table.Column<string>(nullable: false),
                     Date = table.Column<string>(nullable: true),
                     Quadrant = table.Column<int>(nullable: false),
-                    CategoryId = table.Column<int>(nullable: false),
-                    IsCompleted = table.Column<bool>(nullable: false)
+                    IsCompleted = table.Column<bool>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Lists", x => x.TaskId);
+                    table.ForeignKey(
+                        name: "FK_Lists_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -64,11 +70,6 @@ namespace Mission8_Team0210.Migrations
             migrationBuilder.InsertData(
                 table: "Lists",
                 columns: new[] { "TaskId", "CategoryId", "Date", "IsCompleted", "Quadrant", "Task" },
-                values: new object[] { 1, 4, "02/27/2023", false, 2, "Call mistering sisters!" });
-
-            migrationBuilder.InsertData(
-                table: "Lists",
-                columns: new[] { "TaskId", "CategoryId", "Date", "IsCompleted", "Quadrant", "Task" },
                 values: new object[] { 2, 2, "02/24/2023", false, 1, "IS 413 Mission 8" });
 
             migrationBuilder.InsertData(
@@ -79,16 +80,26 @@ namespace Mission8_Team0210.Migrations
             migrationBuilder.InsertData(
                 table: "Lists",
                 columns: new[] { "TaskId", "CategoryId", "Date", "IsCompleted", "Quadrant", "Task" },
+                values: new object[] { 1, 4, "02/27/2023", false, 2, "Call mistering sisters!" });
+
+            migrationBuilder.InsertData(
+                table: "Lists",
+                columns: new[] { "TaskId", "CategoryId", "Date", "IsCompleted", "Quadrant", "Task" },
                 values: new object[] { 4, 5, null, false, 4, "Read through email from friends on mission" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lists_CategoryId",
+                table: "Lists",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Lists");
 
             migrationBuilder.DropTable(
-                name: "Lists");
+                name: "Categories");
         }
     }
 }

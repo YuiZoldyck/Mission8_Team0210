@@ -8,7 +8,7 @@ using Mission8_Team0210.Models;
 namespace Mission8_Team0210.Migrations
 {
     [DbContext(typeof(ToDoContex))]
-    [Migration("20230224203257_Initial")]
+    [Migration("20230225025836_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,6 +83,8 @@ namespace Mission8_Team0210.Migrations
 
                     b.HasKey("TaskId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Lists");
 
                     b.HasData(
@@ -121,6 +123,15 @@ namespace Mission8_Team0210.Migrations
                             Quadrant = 4,
                             Task = "Read through email from friends on mission"
                         });
+                });
+
+            modelBuilder.Entity("Mission8_Team0210.Models.ToDoList", b =>
+                {
+                    b.HasOne("Mission8_Team0210.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,37 +1,87 @@
 ﻿@{
-    ViewData["Title"] = "View Tasks";
+    ViewData["Title"] = "Quadrants";
 }
-
-@model List<ToDoList>
-<!-- this page displays the quadrant of tasks w/ edit and delete options -->
-
-<h3>Here are the Quadrants!</h3>
-
-<table class="table table-bordered table-striped">
-    <thead class="font-weight-bold">
-        <tr>
-            <td>Task</td>
-            <td>Due Date</td>
-            <td>Quadrant</td>
-            <td>Category</td>
-            <td>Completed</td>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var x in Model)
-        {
+<div class="container mt-4">
+    <h1 class="text-center"> To-Do List</h1>
+    <table class="table table-bordered table-striped">
+        <thead>
             <tr>
-                <td>@x.Task</td>
-                <td>@x.Date</td>
-                <td>@x.Quadrant</td>
-                <td>@x.Category.CategoryName</td>
-                <td>@x.IsCompleted</td>
-
-                <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@x.TaskId">Edit</a></td>
-                <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@x.TaskId">Delete</a></td>
-
+                <th></th>
+                <th class="text-center">Urgent</th>
+                <th class="text-center">Not Urgent</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <tr>
+                <th class="align-middle">Important</th>
+                <td class="text-center">
+                    <b>First Quadrant</b>
+                    <!-- Finds task from Database-->
+                    @foreach (var x in Model)
+                    {
+                        if (!x.IsCompleted && x.Quadrant == 1)
+                        {
+                            <br />@x.Task
+                            <span> <a asp-controller="Home" asp-action="Edit" asp-route-id="@x.TaskId">Edit</a></span>
+                            <span><a asp-controller="Home" asp-action="Delete" asp-route-id="@x.TaskId">Delete </a></span>
+                        }
+                        <!--- Tells which Quadrant -->
+
+
+                    }
+
+                </td>
+                <td class="text-center">
+
+                    <b>Second Quadrant</b>
+                    @foreach (var x in Model)
+                    {
+                        if (!x.IsCompleted && x.Quadrant == 2)
+                        {
+                            <br />@x.Task
+                            <span> <a asp-controller="Home" asp-action="Edit" asp-route-id="@x.TaskId">Edit</a></span>
+                            <span><a asp-controller="Home" asp-action="Delete" asp-route-id="@x.TaskId">Delete </a></span>
+                        }
+
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th class="align-middle">Not Important</th>
+
+                <td class="text-center">
+
+                    <b>Third Quadrant</b>
+                    @foreach (var x in Model)
+                    {
+                        if (!x.IsCompleted && x.Quadrant == 3)
+                        {
+                            <br />@x.Task
+                            <span> <a asp-controller="Home" asp-action="Edit" asp-route-id="@x.TaskId">Edit</a></span>
+                            <span><a asp-controller="Home" asp-action="Delete" asp-route-id="@x.TaskId">Delete </a></span>
+                        }
+
+                    }
+
+                </td>
+
+
+                <td class="text-center">
+                    <b>Fourth Quadrant</b>
+                    @foreach (var x in Model)
+                    {
+                        if (!x.IsCompleted && x.Quadrant == 4)
+                        {
+                            <br />@x.Task
+                            <span> <a asp-controller="Home" asp-action="Edit" asp-route-id="@x.TaskId">Edit</a></span>
+                            <span><a asp-controller="Home" asp-action="Delete" asp-route-id="@x.TaskId">Delete </a></span>
+                        }
+
+                    }
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

@@ -12,11 +12,12 @@ namespace Mission8_Team0210.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
         private ToDoContex toDoContext { get; set; }
-
-        public HomeController(ToDoContex x)
+        public HomeController(ILogger<HomeController> logger, ToDoContex tc)
         {
-            toDoContext = x;
+            _logger = logger;
+            toDoContext = tc;
         }
 
         // Home View
@@ -29,7 +30,8 @@ namespace Mission8_Team0210.Controllers
         [HttpGet]
         public IActionResult Quadrants()
         {
-            var tasks = toDoContext.Lists.Include(x => x.Category)
+            var tasks = toDoContext.Lists
+                .Include(x => x.Category)
                 .ToList();
             return View(tasks);
         }
@@ -79,7 +81,7 @@ namespace Mission8_Team0210.Controllers
             {
                 toDoContext.Add(toDo);
                 toDoContext.SaveChanges();
-                return View("Quadrants", toDo);
+                return View("Confirmation", toDo);
             }
             else
             {
